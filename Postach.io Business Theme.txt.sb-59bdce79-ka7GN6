@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en-US" prefix="og: http://ogp.me/ns#">
+<head>
+    <meta charset="utf-8">
+    <title>{% if is_home %}{{ site.author }}{% elif is_post %}{{ post.title }}{% elif is_link %}{{ link.title }}{% elif is_tag %}{{ tag }}{% elif is_page %}{{ page.title }}{% endif %} | {{ site.name }}</title>
+ 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+ 
+    <meta name="description" content="{{ site.bio|striptags }} - {{ site.author }}" />
+    <meta name="copyright" content="Copyright (c) 2013 {{ site.author }}" />
+    <meta name="classification" content="blog" />
+ 
+    {% if is_post %}
+    <meta property="article:published_time" content="{{ post.created_at }}" />
+    {% if post.tags %}
+    {% for tag in post.tags %}
+    <meta property="article:tag" content="{{ tag|format_tag(link=False, humanize=True) }}" />
+    {% endfor %}
+    {% endif %}
+    {% endif %}
+ 
+    <meta property="og:site_name" content="{{ site.name }}" />
+    <meta property="og:image" content="https://www.evernote.com/shard/s2/sh/b0dae424-502f-44d8-89d3-76b8432590a8/f1d130f382d3a07b704648855a3833e7/deep/0/Usable_Screensaver.jpg" />
+    {% if is_post %}
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="{{ post.title }}" />
+    <meta property="og:url" content="http://{{ site.domain }}{{ post.permalink }}" />
+    <meta property="og:description" content="{{ post.content|striptags|truncate(255)|e }}" />
+    {% elif is_page %}
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="{{ page.title }}" />
+    <meta property="og:url" content="http://{{ site.domain }}{{ page.permalink }}" />
+    <meta property="og:description" content="{{ page.content|striptags|truncate(255)|e }}" />
+    {% else %}
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="{{ site.name }}" />
+    <meta property="og:url" content="http://{{ site.domain }}" />
+    <meta property="og:description" content="{{ site.bio }}" />
+    {% endif %}
+ 
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@{{ site.twitter }}">
+    {% if is_post %}
+    <meta name="twitter:title" content="{{ post.title }}">
+    <meta name="twitter:description" content="{{ post.content|striptags|truncate(255)|e }}...">
+    {% elif is_page %}
+    <meta name="twitter:title" content="{{ page.title }}">
+    <meta name="twitter:description" content=" {{ page.content|striptags|truncate(255)|e }}...">
+    {% else %}
+    <meta name="twitter:title" content="{{ site.name }}">
+    <meta name="twitter:description" content="{{ site.bio|striptags|truncate(255)|e }}...">
+    {% endif %}
+    <meta name="twitter:creator" content="@{{ site.twitter }}">
+    <meta name="twitter:image:src" content="{{ account.email|gravatar(512) }}">
+    <meta name="twitter:domain" content="http://{{ site.domain }}">
+ 
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="{{ site.atom_url }}" />
+ 
+    <link href="{{ static('themes/lindseyholmes/css/main.css') }}" rel="stylesheet" />
+    <!--   
+    <script>
+    (function(doc, script) {
+        var js,
+            fjs = doc.getElementsByTagName(script)[0],
+            frag = doc.createDocumentFragment(),
+            add = function(url, id) {
+                if (doc.getElementById(id)) { return; }
+                js = doc.createElement(script);
+                js.src = url;
+                id && (js.id = id);
+                frag.appendChild( js );
+            };
+ 
+        add('http://apis.google.com/js/plusone.js'); // Google+ button
+        add('//connect.facebook.net/en_US/all.js#xfbml=1&appId=200103733347528', 'facebook-jssdk'); // Facebook SDK
+        add('//platform.twitter.com/widgets.js'); // Twitter SDK
+        add('//assets.pinterest.com/js/pinit.js'); // Pinterest SDK
+ 
+        fjs.parentNode.insertBefore(frag, fjs);
+    }(document, 'script'));
+    </script>
+     -->
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533f0c722301c154"></script>
+  
+    <script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">stLight.options({publisher: "ur-591b868-915a-87b9-b31f-1b05d49d22e2", doNotHash: false, doNotCopy: false, hashAddressBar: true});</script>
+
+    <style type="text/css">
+        .stButton .stLarge:hover{
+            background-position:center center !important;
+        }
+        .blog-posts .post{
+            word-wrap:break-word;
+        }
+    </style>
+
+   
+    {% if site.analytics %}
+    <script>
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '{{ site.analytics }}']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    </script>
+    {% endif %}
+<script type="text/javascript" src="http://assets.sendowl.com/javascripts/cart.min.js"></script>
+<script type="text/javascript">(function() {
+  var fl = document.createElement('script'); fl.type = 'text/javascript'; fl.async = true; fl.src = document.location.protocol + '//filamentapp.s3.amazonaws.com/8b57a77b0c562a5f224849eff4a4ae74.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(fl, s);
+})();</script>
+</head>
+<script type="text/javascript">
+  var vglnk = { api_url: '//api.viglink.com/api',
+                key: 'cd9accaa7ee60ca1cc68ad40a6fb69d6' };
+
+  (function(d, t) {
+    var s = d.createElement(t); s.type = 'text/javascript'; s.async = true;
+    s.src = ('https:' == document.location.protocol ? vglnk.api_url :
+             '//cdn.viglink.com/api') + '/vglnk.js';
+    var r = d.getElementsByTagName(t)[0]; r.parentNode.insertBefore(s, r);
+  }(document, 'script'));
+</script>
+<body>
+    <div class="site-container">
+ 
+        <header class="site-header">
+            <nav id="nav" class="header-nav" role="navigation" >
+                <a href="#" id="toggle" class="nav-toggle"><i class="icon-ellipsis-vertical "></i><span class="hide-text">Menu</span></a>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    {% if pages %}
+                    {% for page in pages %}
+                    <li><a href="{{ page.permalink }}">{{ page.title }}</a></li>
+                    {% endfor %}
+                    {% endif %}
+                    <!--
+                    <li>
+                        <div class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-target="#">Portfolio</a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Information</a></li>
+                                <li><a href="#">Journal</a></li>
+                                <li><a href="#">Contact</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    -->
+                </ul>
+            </nav>
+            <div class="header-logo">
+                <a href="/"><div class="logo"><span class="hide-text">{{ site.name }}</span></div></a>
+            </div>
+            <!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533f0c722301c154"></script>
+
+
+        </header>
+ 
+        <div class="site-content"  role="main">
+            <div class="content-container">
+                {% if is_home or is_tag %}
+ 
+                <div class="container">
+                    {% if is_tag %}
+                    <div class="row">
+                        <div class="span12">
+                            <header class="page-head">
+                                <!-- <h2>Blog</h2>
+                                <p>We’d love to hear from you, get in touch with us</p> -->
+                                <h2>Tag Search</h2>
+                                <p>Showing all posts tagged <em>{{ tag }}</em></p>
+                            </header>
+                        </div>
+                    </div>
+                    <hr />
+                    {% endif %}
+                    <div class="row">
+                        <div class="span9">
+                            {% if posts %}
+                            <ul class="blog-posts">
+                                {% for post in posts %}
+                                <li class="post">
+                                    <article itemscope itemtype="http://schema.org/Article">
+                                        <span class="post-date"><small class="head-small">Published by {{ post.author.name }} on {{ post.created_at|format_date }}</small></span>
+                                        <h1 class="post-title"><a href="{{ post.permalink }}">{{ post.title }}</a></h1>
+                                        <p class="post-content">{{ post.content|striptags|truncate(255) }}</p>
+                                    </article>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            {% if not is_tag %}
+                            <div class="pagination">
+                                {% if pagination.prev %}<a href="{{ pagination.prev }}" class="post-prev">&larr; View Previous Posts</a>{% endif %}
+                                {% if pagination.next %}<a href="{{ pagination.next }}" class="post-next">View More Posts &rarr;</a>{% endif %}
+                            </div>
+                            {% endif %}
+                            {% else %}
+                            <h1 class="post-title">No posts yet :(</h1>
+                            {% endif %}
+                        </div>
+                        <div class="span2 offset1">
+                            <div class="post-tags">
+                                {% if site.tags %}
+                                <p><small class="head-small">Tags</small></p>
+                                <ul>
+                                {% for tag in site.tags %}
+                                    <li><a href="/tag/{{ tag.name }}">{{ tag.name }}</a></li>
+                                {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+                {% elif is_post %}
+ 
+                <div class="container">
+                    <!-- <div class="page-head">
+                        <div class="row">
+                            <div class="span12">
+                                <h2>Journal</h2>
+                                <p>Read our latest articles</p>
+                            </div>
+                        </div>
+                    </div> -->
+                    <article itemscope itemtype="http://schema.org/Article" class="row blog-post">
+                        <div class="span3 post-sidebar">
+                            <div class="sidebar-left">
+                                <div class="post-date">
+                                    <small class="head-small">Published</small>
+                                    <p>{{ post.created_at|date_format }}</p>
+                                </div>
+ 
+                                <div class="post-author">
+                                    <small class="head-small">Author</small>
+                                    <p>{{ site.author }}</p>
+                                </div>
+ 
+                                {% if post.tags %}
+                                <div class="post-tags">
+                                    <p><small class="head-small">Post Tags</small></p>
+                                    {% if post.tags %}
+                                    {{ post.tags|format_tags(humanize=True) }}</a>
+                                    {% endif %}
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+                                    <div class="addthis_recommended_vertical"></div>
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="sidebar-right">
+                                <div class="post-sharing">
+                                  <!--   <small class="head-small">Share</small>
+                                    <ul class="social-icons">
+                                        <!--
+                                             <li>
+                                                <a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal">Tweet</a>
+                                            </li>
+                                            <li>
+                                                <div id="fb-root"></div>
+                                                <div class="fb-like" data-send="false" data-layout="button_count" data-width="1" data-show-faces="false" data-action="like" style="top:-7px;"></div>
+                                            </li>
+                                            <li>
+                                                <a href="//pinterest.com/pin/create/button/" data-pin-do="buttonBookmark" ><img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /></a>
+                                            </li>
+                                            <li>
+                                                <div class="g-plusone" data-size="medium" data-count="true"></div>
+                                            </li>
+                                        -->
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span9">
+                            <section class="post-content">
+                                <header class="page-head">
+                                    <h1 class="extra-bold">{{ post.title }}</h1>
+                                </header>
+                                {{ post.content }}
+                            </section>
+ 
+                            {% if site.disqus %}
+                            <section class="post-comments">
+                                <hr />
+                                <div id="disqus_thread"></div>
+                                <script type="text/javascript">
+                                var disqus_shortname = '{{ site.disqus }}';
+                                (function() {
+                                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                                })();
+                                </script>
+                                <noscript>
+                                    Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+                                </noscript>
+                                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                            </section>
+                            {% endif %}
+                        </div>
+                    </div>
+                </article>
+ 
+                {% elif is_link %}
+ 
+                <div class="container">
+                    <div class="page-head">
+                        <div class="row">
+                            <div class="span12">
+                                <h2>Journal</h2>
+                                <p>Read our latest articles</p>
+                            </div>
+                        </div>
+                    </div>
+                    <article itemscope itemtype="http://schema.org/Article" class="row blog-post">
+                        <div class="span3">
+                            <div class="post-date">
+                                <small class="head-small">Published</small>
+                                <p>{{ link.created_at|date_format }}</p>
+                            </div>
+ 
+                            <div class="post-author">
+                                <small class="head-small">Author</small>
+                                <p>{{ site.author }}</p>
+                            </div>
+ 
+                            <!-- <div class="post-sharing">
+                                <small class="head-small">Share</small>
+                                <ul class="social-icons">
+                                    <li><!-- Twitter -->
+                                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal">Tweet</a>
+                                    </li>
+                                    <li><!-- Facebook -->
+                                        <div id="fb-root"></div>
+                                        <div class="fb-like" data-send="false" data-layout="button_count" data-width="1" data-show-faces="false" data-action="like"></div>
+                                    </li>
+                                    <li><!-- Pinterest -->
+                                        <a href="//pinterest.com/pin/create/button/" data-pin-do="buttonBookmark" ><img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /></a>
+                                    </li>
+                                    <li><!-- Google Plus -->
+                                        <div class="g-plusone" data-size="medium" data-count="true"></div>
+                                    </li> -->
+                                </ul>
+                            </div>
+ 
+                            {% if link.tags %}
+                            <div class="post-tags">
+                                <p><small class="head-small">Post Tags</small></p>
+                                {% if link.tags %}
+                                {{ link.tags|format_tags(humanize=True) }}
+                                {% endif %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="span9">
+                            <section class="post-content">
+                                <header class="page-head">
+                                    <h1 class="extra-bold">{{ link.title }}</h1>
+                                </header>
+                                {{ link.content }}
+                            </section>
+ 
+                            {% if site.disqus %}
+                            <section class="post-comments">
+                                <hr />
+                                <div id="disqus_thread"></div>
+                                <script type="text/javascript">
+                                var disqus_shortname = '{{ site.disqus }}';
+                                (function() {
+                                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                                })();
+                                </script>
+                                <noscript>
+                                    Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+                                </noscript>
+                                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                            </section>
+                            {% endif %}
+                        </div>
+                    </div>
+                </article>
+ 
+                {% elif is_page %}
+ 
+                <div class="container">
+                    <!-- <div class="page-head">
+                        <div class="row">
+                            <div class="span12">
+                                <h2>Journal</h2>
+                                <p>Read our latest articles</p>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="row">
+                        <article class="span12">
+                            <header>
+                                <h1>{{ page.title }}</h1>
+                            </header>
+                            <div class="page-content">
+                                {{ page.content }}
+                            </div>
+                        </article>
+                    </div>
+                </div>
+ 
+                {% endif %}
+            </div>
+        </div>
+ 
+        <footer class="site-footer">
+            <div class="footer-upper hidden-phone">
+                <div class="container">
+                    <div class="row">
+                        <div class="span3">
+                            <div class="footer-title">
+                                <div class="logo">{{ site.name }}<span class="hide-text">{{ site.name }}</span></div>
+                            </div>
+                <address>
+                    <td><i class="icon-map-marker"></i> Newark, NJ ∙ Washington, DC</td><br>
+                    <td><i class="icon-phone"></i> (973) 968-4792</td>
+                    <br>
+                    <br>
+                    <td><i class="icon-mail-3"></i> <a href="mailto:#">info@usabletech.co</a></td>
+                </address>
+                        </div>
+                        <div class="span6">
+                        <span class="footer-title">Featured Post</span>
+                        {% for post in posts_recent %}
+                        {% if loop.index <= 1 %}
+                            <a href="{{ post.permalink }}">{{ post.title }}</a>
+                            <p>{{ post.content|striptags|truncate(160) }}</p>
+                        {% endif %}
+                        {% endfor %}
+                        </div>
+                        <div class="span3">
+                            <span class="footer-title">Follow Us</span>
+                            <p>
+                            {% if site.twitter %}<a href="{{ site.twitter }}" title="Twitter" target="_blank">Twitter</a><br />{% endif %}
+                            {% if site.facebook %}<a href="{{ site.facebook }}" title="Facebook" target="_blank">Facebook</a><br />{% endif %}
+                            {% if site.googleplus %}<a href="{{ site.googleplus }}" title="Google+" target="_blank">Google Plus</a><br />{% endif %}
+                            {% if site.linkedin %}<a href="{{ site.linkedin }}" title="LinkedIn" target="_blank">LinkedIn</a>{% endif %}
+                            </p>
+                </div>
+                </div>
+                </div>
+                 </p>
+            <div class="footer-lower">
+                <a href="#" title="Scroll To Top" class="scroll-to-top hidden-phone"><i class="icon-chevron-up"><span class="hide-text">Scroll To Top</span></i></a>
+                <div class="footer-copyright">
+          <p>Copyright &copy; <a href="/">{{ site.name }}</a></p>
+          </div>
+                <div class="footer-nav">
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        {% if pages %}
+                        {% for page in pages %}
+                        <li><a href="{{ page.permalink }}">{{ page.title }}</a></li>
+                        {% endfor %}
+                        {% endif %}
+                    </ul>
+                    <ul class="social-icons">
+                        {% if site.twitter %}
+                        <li>
+                            <a href="{{ site.twitter }}" title="Twitter" target="_blank">
+                                <i class="icon-twitter"></i>
+                                <span class="hide-text">Twitter</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% if site.facebook %}
+                        <li>
+                            <a href="{{ site.facebook }}" title="Facebook" target="_blank">
+                                <i class="icon-facebook"></i>
+                                <span class="hide-text">Facebook</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% if site.googleplus %}
+                        <li>
+                            <a href="{{ site.googleplus }}" title="Google+" target="_blank">
+                                <i class="icon-google-plus"></i>
+                                <span class="hide-text">Google Plus</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% if site.linkedin %}
+                        <li>
+                            <a href="{{ site.linkedin }}" title="LinkedIn" target="_blank">
+                                <i class="icon-linkedin"></i>
+                                <span class="hide-text">LinkedIn</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                        <li>
+                            <a href="mailto:#" title="Email" target="_blank">
+                                <i class="icon-envelope-alt"></i>
+                                <span class="hide-text">Email</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ site.atom_url }}" title="RSS" target="_blank">
+                                <i class="icon-rss"></i>
+                                <span class="hide-text">RSS</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+ 
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="{{ static('js/jquery.min.js') }}"><\/script>')</script>
+        <script src="{{ static('bootstrap/js/bootstrap.min.js') }}"></script>
+        <script>
+        $(function() {
+            $(document)
+                .on('click', '#toggle', function(e) {
+                    e.preventDefault();
+                    $('#nav ul').fadeToggle();
+                    $(this).toggleClass('toggle-open');
+                })
+                .on('click', '.scroll-to-top', function(e) {
+                    e.preventDefault();
+                    $("html, body").animate({ scrollTop: 0 }, 600);
+                });
+        });
+        </script>
+ 
+    </div>
+    <script type="text/javascript">
+  var FHChat = {product_id: "e7d2c9bedb39"}
+  FHChat.customAttributes=[];FHChat.sendCustomAttributes=function(data){this.customAttributes.push(data)};!function(){var a,b;return b=document.createElement("script"),a=document.getElementsByTagName("script")[0],b.src="https://chat-client-js.firehoseapp.com/chat-min.js",b.async=!0,a.parentNode.insertBefore(b,a)}();
+</script>
+</body>
+</html>
